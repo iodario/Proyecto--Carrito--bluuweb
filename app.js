@@ -66,9 +66,14 @@ const addCarrito = e =>{
 
 //4-d) creamos una funcion que manipule nuestro objeto carrito
 const setCarrito = objeto => {
-    // console.log(objeto)
+     console.log(objeto)
     const producto = {
-        id: objeto.querySelector('.btn-dark').dataset.id
+        id: objeto.querySelector('.btn-dark').dataset.id,     //identifica el id del elemento clickeado
+        title: objeto.querySelector('h5').textContent,         // el ttulo
+        precio: objeto.querySelector('p').textContent,          // el precio
+        cantidad: 1
     }
     console.log(producto)
 }
+
+//minuto37.09 dejo aca
