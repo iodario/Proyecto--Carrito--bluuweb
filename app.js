@@ -4,13 +4,17 @@
 const items = document.getElementById('items');
 const templateCard = document.getElementById('template-card').content;
 const fragment = document.createDocumentFragment();
-console.log(templateCard);
+
+//paso 4-c) agregar productos al carrito, creamos objeto vacio
+let carrito = {}
+
 
 //paso 2) utilizamos DOMContentLoaded cuando toda la pagina esta cargada 
 document.addEventListener('DOMContentLoaded', ()=>{
     fetchData();
 })
 
+//paso 4)creando Carrito: capturamos un evento click que ejecuta una funcion
 items.addEventListener('click',e =>{
    addCarrito(e)
 })
@@ -44,11 +48,27 @@ const pintarCards = data => {
         fragment.appendChild(clone);
         console.log(producto.thumbnailUrl);
     })
-    items.appendChild(fragment);
+    items.appendChild(fragment); 
 }
 
 
-//creamos una funcion que captura un evento click, y muestra un elemento del html 
+//4-b) creamos una funcion que captura un evento click, y muestra un elemento del html 
 const addCarrito = e =>{
-    console.log(e.target)
+    // console.log(e.target)    
+    // console.log(e.target.classList.contains('btn-dark'))     // valida si el elemento contiene la propiedad que pasamos por parametro
+    if(e.target.classList.contains('btn-dark')){   //detectamos el boton y utilizamos el producto.id
+        // console.log(e.target.parentElement) //parentElement me muestra el elemento padre, en este caso el div padre
+        setCarrito(e.target.parentElement);
+    }
+    e.stopPropagation()
+
+}
+
+//4-d) creamos una funcion que manipule nuestro objeto carrito
+const setCarrito = objeto => {
+    // console.log(objeto)
+    const producto = {
+        id: objeto.querySelector('.btn-dark').dataset.id
+    }
+    console.log(producto)
 }
