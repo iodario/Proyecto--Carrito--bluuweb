@@ -27,8 +27,10 @@ const fetchData = async () => {
 
 //paso 3-b) creamos una funcion que muestra la data en pantalla, o por consola
 const pintarCards = data => {
+    console.log(data)
     data.forEach(producto =>{
         templateCard.querySelector('h5').textContent = producto.title;
+        templateCard.querySelector('p').textContent = producto.precio;
 
         const clone = templateCard.cloneNode(true);
         fragment.appendChild(clone);
