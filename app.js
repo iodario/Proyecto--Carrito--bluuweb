@@ -4,6 +4,7 @@
 const items = document.getElementById('items');
 const templateCard = document.getElementById('template-card').content;
 const fragment = document.createDocumentFragment();
+console.log(templateCard);
 
 //paso 2) utilizamos DOMContentLoaded cuando toda la pagina esta cargada 
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -23,11 +24,16 @@ const fetchData = async () => {
     }
 }
 
+
 //paso 3-b) creamos una funcion que muestra la data en pantalla, o por consola
 const pintarCards = data => {
     data.forEach(producto =>{
-        console.log(producto)
+        templateCard.querySelector('h5').textContent = producto.title;
+
+        const clone = templateCard.cloneNode(true);
+        fragment.appendChild(clone);
     })
+    items.appendChild(fragment)
 }
 
 
