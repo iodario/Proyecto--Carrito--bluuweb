@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     fetchData();
 })
 
+items.addEventListener('click',e =>{
+   addCarrito(e)
+})
+
 
 // paso1) utilizamos fetch y mostramos la informacion consumida por consola
 const fetchData = async () => {
@@ -44,4 +48,7 @@ const pintarCards = data => {
 }
 
 
-
+//creamos una funcion que captura un evento click, y muestra un elemento del html 
+const addCarrito = e =>{
+    console.log(e.target)
+}
