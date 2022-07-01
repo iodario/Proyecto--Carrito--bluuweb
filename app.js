@@ -66,14 +66,22 @@ const addCarrito = e =>{
 
 //4-d) creamos una funcion que manipule nuestro objeto carrito
 const setCarrito = objeto => {
-     console.log(objeto)
+    //  console.log(objeto)
     const producto = {
         id: objeto.querySelector('.btn-dark').dataset.id,     //identifica el id del elemento clickeado
         title: objeto.querySelector('h5').textContent,         // el ttulo
         precio: objeto.querySelector('p').textContent,          // el precio
-        cantidad: 1
+        cantidad: 1                                             // la cantidad la dejamos en 1, luego aumentara
     }
-    console.log(producto)
+      //4-e) aumentar el numero de productos en el carrito, al presionar Comprar       //Carrito es toda nuestra coleccion de objetos. Estamos accediendo sólo al elemento que se está repitiendo. Una vez que accedemos, accedemos solamente a la cantidad, y la aumentamos en 1. Si este producto no exixte, por defecto la cantidad sera 1. 
+    if (carrito.hasOwnProperty(producto.id)) {
+        producto.cantidad = carrito[producto.id].cantidad + 1 
+    } 
+    //una vez que tenemos el objeto tenemos que pushearlo al carrito. Estamos haciendo una coleccion de objetos indexados. 
+    carrito[producto.id] = {...producto}    //spread operator, aqui estamos haciendo una 'copia' de producto
+
+    console.log(carrito)
 }
 
-//minuto37.09 dejo aca
+//5) template: carrito de compras mostrado en la pagina
+
