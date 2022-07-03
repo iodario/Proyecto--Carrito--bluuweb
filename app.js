@@ -86,7 +86,7 @@ const setCarrito = objeto => {
     //una vez que tenemos el objeto tenemos que pushearlo al carrito. Estamos haciendo una coleccion de objetos indexados. 
     carrito[producto.id] = {...producto}    //spread operator, aqui estamos haciendo una 'copia' de producto
     console.log(carrito)
-    pintarCarrito(); 
+    pintarCarrito();  //5)
 }
 
 //5) template: carrito de compras mostrado en la pagina
@@ -110,11 +110,19 @@ const pintarCarrito = () => {
     })
     // 5-c)Pintamos la informacion
     items.appendChild(fragment)
+    pintarFooter()   //6)
 }
 
 //terminado 5-c) hasta aqui funciona todo bien excepto que al repetir un producto, lo muestra dos veces
 //5-d) corregimos ese detalle, sucede porque no estamos limpiando nuestro html
 
 
-
-
+// 6)template-footer
+// 6-a) generamos los template, vamos a buscar el id guardado
+const pintarFooter = () =>{
+    footer.innerHTML = ''    //iniciamos footer en 0
+    //debemos preguntar si nuetro carrito esta vacio, si es true entra el if:
+    if(Object.keys(carrito).length === 0) {
+        footer.innerHTML = ` <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>`
+    }
+}
