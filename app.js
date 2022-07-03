@@ -124,6 +124,7 @@ const pintarFooter = () =>{
     //debemos preguntar si nuetro carrito esta vacio, si es true entra el if:
     if(Object.keys(carrito).length === 0) {
         footer.innerHTML = ` <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>`
+        return   //no olvidar return para que se salga de la funcion
     }
     //7) si no esta vacio pintamos footer, sumando cantidades y totales
     const nCantidad = Object.values(carrito).reduce((acc,{cantidad}) => acc +cantidad ,0)    //este acumuldador, por cada iteracion va a ir acumulando lo que nosotros hagamos como suma
@@ -138,8 +139,15 @@ const pintarFooter = () =>{
     const clone = templateFooter.cloneNode(true)
     fragment.appendChild(clone);
     footer.appendChild(fragment);
+
+    //9) Evento vaciar carrito
+    const btnVaciar = document.getElementById ('vaciar-carrito')
+    btnVaciar.addEventListener('click',() => {
+        carrito = {};   //vaciamos el objeto carrito
+        pintarCarrito();
+    })
 } 
 
-
+//10) botones aumentar y disminuir cantidad
 
 
