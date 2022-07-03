@@ -19,6 +19,10 @@ let carrito = {}
 //paso 2) utilizamos DOMContentLoaded cuando toda la pagina esta cargada 
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
+    if(localStorage.getItem('carrito')) {       //11-a) si existe dentro del localStorage una clave 'carrito'
+        carrito = JSON.parse(localStorage.getItem('carrito'));   //asignar a carrito, el parse a Objeto de localStorage.getItem
+        pintarCarrito();                            //mostrar carrito en el Dom
+    }
 })
 //paso 4)creando Carrito: capturamos un evento click que ejecuta una funcion
 cards.addEventListener('click', e => {
@@ -113,7 +117,10 @@ const pintarCarrito = () => {
     })
     // 5-c)Pintamos la informacion
     items.appendChild(fragment)
+
     pintarFooter()   //6)
+
+    localStorage.setItem('carrito',JSON.stringify(carrito))    //11-b)
 }
 
 //terminado 5-c) hasta aqui funciona todo bien excepto que al repetir un producto, lo muestra dos veces
@@ -179,4 +186,6 @@ const btnAccion = e => {
     e.stopPropagation();
 }
 
-
+//11) Local Storage VAMOS QUE YA TERMINO !!
+//11-a) Junto con la funcion fetch(), hacemos un if con localStorage.getItem
+//11-b) Cada vez que se ejecuta pintarCarrito(), guardamos los elementos generados en el localStorage con setItem
