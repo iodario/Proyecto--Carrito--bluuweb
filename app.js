@@ -125,4 +125,21 @@ const pintarFooter = () =>{
     if(Object.keys(carrito).length === 0) {
         footer.innerHTML = ` <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>`
     }
-}
+    //7) si no esta vacio pintamos footer, sumando cantidades y totales
+    const nCantidad = Object.values(carrito).reduce((acc,{cantidad}) => acc +cantidad ,0)    //este acumuldador, por cada iteracion va a ir acumulando lo que nosotros hagamos como suma
+    const nPrecio = Object.values(carrito).reduce((acc,{cantidad,precio})=> acc + cantidad * precio,0)
+    console.log(nPrecio)
+    // console.log(nCantidad)
+
+    //8) pintamos la ultima funcionalidad en el footer(suma de cantidades y totales)
+    templateFooter.querySelectorAll('td')[0].textContent = nCantidad;
+    templateFooter.querySelector('span').textContent = nPrecio;
+
+    const clone = templateFooter.cloneNode(true)
+    fragment.appendChild(clone);
+    footer.appendChild(fragment);
+} 
+
+
+
+
