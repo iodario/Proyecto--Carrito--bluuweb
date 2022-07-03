@@ -1,1 +1,1 @@
-### ejercicio carrito de compras JS vanilla###
+### ejercicio carrito de compras JS vanilla
