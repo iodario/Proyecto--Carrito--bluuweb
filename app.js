@@ -1,8 +1,14 @@
 
 
 //paso3) utilizamos Fragment o Template para pintar la informacion en el Dom
-const items = document.getElementById('items');
+const cards = document.getElementById('cards');
 const templateCard = document.getElementById('template-card').content;
+// 5-a) **guardamos todos los id** templates footer y carrito. y elementos 'items' y 'footer' 
+const footer = document.getElementById('footer');
+const items = document.getElementById('items');
+const templateFooter = document.getElementById('template-footer').content;
+const templateCarrito = document.getElementById('template-carrito').content;
+
 const fragment = document.createDocumentFragment();
 
 //paso 4-c) agregar productos al carrito, creamos objeto vacio
@@ -15,7 +21,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })
 
 //paso 4)creando Carrito: capturamos un evento click que ejecuta una funcion
-items.addEventListener('click',e =>{
+cards.addEventListener('click',e =>{
    addCarrito(e)
 })
 
@@ -35,7 +41,7 @@ const fetchData = async () => {
 
 //paso 3-b) creamos una funcion que muestra la data en pantalla, o por consola
 const pintarCards = data => {
-    console.log(data)
+    // console.log(data)
     data.forEach(producto =>{
         templateCard.querySelector('h5').textContent = producto.title;
         templateCard.querySelector('p').textContent = producto.precio;
@@ -48,7 +54,7 @@ const pintarCards = data => {
         fragment.appendChild(clone);
         console.log(producto.thumbnailUrl);
     })
-    items.appendChild(fragment); 
+    cards.appendChild(fragment); 
 }
 
 
@@ -79,9 +85,36 @@ const setCarrito = objeto => {
     } 
     //una vez que tenemos el objeto tenemos que pushearlo al carrito. Estamos haciendo una coleccion de objetos indexados. 
     carrito[producto.id] = {...producto}    //spread operator, aqui estamos haciendo una 'copia' de producto
-
     console.log(carrito)
+    pintarCarrito(); 
 }
 
 //5) template: carrito de compras mostrado en la pagina
+// 5-a) generamos los templates
+
+// 5-b) pintar carrito en el Dom, creamos funcion para ello. usamos **template-carrito**
+// 5-b) hacemos un forEach del Objeto carrito, utilizamos Object.values por ser un objeto
+const pintarCarrito = () => {
+    // console.log(carrito)
+    items.innerHTML = ' '    //5-d) items debe partir vacio por cada vez que ejecutamos pintar Carrito(0)
+    Object.values(carrito).forEach(producto => {
+        templateCarrito.querySelector('th').textContent = producto.id  //editando contenido de tag 'th'
+        templateCarrito.querySelectorAll('td')[0].textContent = producto.title
+        templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
+        templateCarrito.querySelector('.btn-info').dataset.id = producto.id
+        templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+        templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
+        //clonando el carrito, utilizamos el fragment
+        const clone = templateCarrito.cloneNode(true)
+        fragment.appendChild(clone);   // ?
+    })
+    // 5-c)Pintamos la informacion
+    items.appendChild(fragment)
+}
+
+//terminado 5-c) hasta aqui funciona todo bien excepto que al repetir un producto, lo muestra dos veces
+//5-d) corregimos ese detalle, sucede porque no estamos limpiando nuestro html
+
+
+
 
